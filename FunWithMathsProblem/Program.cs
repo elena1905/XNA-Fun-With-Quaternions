@@ -25,17 +25,17 @@ namespace FunWithMathsProblem
             return a;
         }
 
-        static Vector3 quaternionToLookVector(Vector3 look, Quaternion q)
+        static Vector3 quaternionToLookVector(Quaternion q)
         {
             // Convert the quaternion to a look vector
         }
 
-        static Vector3 quaternionToLookVector2(Vector3 look, Quaternion q)
+        static Vector3 quaternionToLookVector2(Quaternion q)
         {
             // Use the matrix version
         }
 
-        static Quaternion lookVectorToQuaternion(Quaternion q, Vector3 look)
+        static Quaternion lookVectorToQuaternion(Vector3 look)
         {
 
         }
@@ -52,9 +52,9 @@ namespace FunWithMathsProblem
             Console.WriteLine("Normalised A");
             Console.WriteLine(a.X + " " + a.Y + " " + a.Z);
 
-            lookVectorToQuaternion(q, a);
+            q = lookVectorToQuaternion(a);
 
-            quaternionToLookVector(a, q);
+            a = quaternionToLookVector(q);
             Console.WriteLine(a.X + " " + a.Y + " " + a.Z);
 
             float theta;
@@ -66,7 +66,7 @@ namespace FunWithMathsProblem
 
             q = Quaternion.Identity;
 
-            rotateVecByQuaternion(a, q);
+            a = rotateVecByQuaternion(a, q);
             Console.WriteLine("Rotate A by the identity quaternion");
             Console.WriteLine(a.X + " " + a.Y + " " + a.Z);
 
@@ -88,12 +88,12 @@ namespace FunWithMathsProblem
 
             q = Quaternion.Identity;
             q = Quaternion.CreateFromAxisAngle(axis, theta);
-            rotateVecByQuaternion(a, q);
+            a = rotateVecByQuaternion(a, q);
             Console.WriteLine("Rotate A 90 deg around the X axis using quaternion vector arithmetic");
             Console.WriteLine(a.X + " " + a.Y + " " + a.Z);
 
             a = original;
-            rotateVecByQuaternion2(a, q);
+            a = rotateVecByQuaternion2(a, q);
             Console.WriteLine("Rotate A 90 deg around the X axis using quaternion matrix arithmetic");
             Console.WriteLine(a.X + " " + a.Y + " " + a.Z);
         }

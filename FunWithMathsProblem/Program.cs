@@ -16,28 +16,71 @@ namespace FunWithMathsProblem
         static Vector3 rotateVecByQuaternion(Vector3 a, Quaternion q)
         {
             // Rotate the vector
+            Quaternion pureQ = new Quaternion(a, 0.0f);
+            Quaternion invQ = Quaternion.Inverse(q);
+
+            a = quaternionToLookVector(q * pureQ * invQ);
+
+/*
+            Quaternion temp = q * pureQ * invQ;
+
+            a.X = temp.X;
+            a.Y = temp.Y;
+            a.Z = temp.Z;
+ */
+
             return a;
         }
 
         static Vector3 rotateVecByQuaternion2(Vector3 a, Quaternion q)
         {
             // This time try using a matrix!!!
+            Quaternion pureQ = new Quaternion(a, 0.0f);
+            Quaternion invQ = Quaternion.Inverse(q);
+
+            Matrix m = Matrix.CreateFromQuaternion(q);
+
+            a = Vector3.Transform(a, m);
+
             return a;
         }
 
         static Vector3 quaternionToLookVector(Quaternion q)
         {
             // Convert the quaternion to a look vector
+            Vector3 v = new Vector3();
+
+            v.X = q.X;
+            v.Y = q.Y;
+            v.Z = q.Z;
+
+            return v;
         }
 
         static Vector3 quaternionToLookVector2(Quaternion q)
         {
             // Use the matrix version
+            Matrix m = Matrix.CreateFromQuaternion(q);
+
+            Vector3 v = new Vector3();
+
+            v.X = m.M11;
+            v.Y = m.M22;
+            v.Z = m.M33;
+
+            return v;
         }
 
         static Quaternion lookVectorToQuaternion(Vector3 look)
         {
+            Quaternion q = new Quaternion();
 
+            q.X = look.X;
+            q.Y = look.Y;
+            q.Z = look.Z;
+            q.W = 0.0f;
+
+            return q;
         }
 
         static void Main(string[] args)
@@ -96,6 +139,8 @@ namespace FunWithMathsProblem
             a = rotateVecByQuaternion2(a, q);
             Console.WriteLine("Rotate A 90 deg around the X axis using quaternion matrix arithmetic");
             Console.WriteLine(a.X + " " + a.Y + " " + a.Z);
+
+            Console.ReadLine();
         }
     }
 }
